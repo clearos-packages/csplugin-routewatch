@@ -4,3 +4,7 @@ AM_CXXFLAGS = ${CXXFLAGS}
 lib_LTLIBRARIES = libcsplugin-routewatch.la
 libcsplugin_routewatch_la_SOURCES = csplugin-routewatch.cpp
 libcsplugin_routewatch_la_CXXFLAGS = ${AM_CXXFLAGS}
+EXTRA_DIST = autogen.sh
+LIBTOOL_DEPS = @LIBTOOL_DEPS@
+libtool: $(LIBTOOL_DEPS)
+	$(SHELL) ./config.status libtool

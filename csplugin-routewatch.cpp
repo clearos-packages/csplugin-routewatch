@@ -245,7 +245,7 @@ void csPluginRouteWatch::ProcessNetlinkEvent(struct nlmsghdr *nh)
     }
 
     if (rth->rtm_family == AF_INET6) {
-        csLog::Log(csLog::Warning, "%s: No IPv6 support (yet)",
+        csLog::Log(csLog::Debug, "%s: No IPv6 support (yet)",
             name.c_str());
         return;
     }

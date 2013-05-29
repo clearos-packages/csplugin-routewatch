@@ -2,17 +2,17 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.63])
-AC_INIT([csplugin-routewatch], [2.2], [http://www.clearfoundation.com/docs/developer/bug_tracker/])
-AM_INIT_AUTOMAKE([csplugin-routewatch], [2.2])
+AC_INIT([csplugin-routewatch], [2.3], [http://www.clearfoundation.com/docs/developer/bug_tracker/])
+AM_INIT_AUTOMAKE([csplugin-routewatch], [2.3])
 AC_CONFIG_SRCDIR([csplugin-routewatch.cpp])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
+LT_INIT
+AC_SUBST([LIBTOOL_DEPS])
 
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_INSTALL
-AC_PROG_RANLIB
-AM_PROG_LIBTOOL
 
 # Checks for libraries.
 
