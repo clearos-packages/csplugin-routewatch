@@ -240,7 +240,7 @@ void csPluginRouteWatch::ProcessNetlinkEvent(struct nlmsghdr *nh)
     if (rth->rtm_family != AF_INET &&
         rth->rtm_family != AF_INET6) {
         csLog::Log(csLog::Debug, "%s: Event for other protocol family: %d",
-            name.c_str(), rth->rtm_table);
+            name.c_str(), rth->rtm_family);
         return;
     }
 
