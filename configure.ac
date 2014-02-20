@@ -15,6 +15,9 @@ AC_PROG_INSTALL
 
 # Checks for header files.
 AC_CHECK_HEADERS([sys/socket.h sys/time.h])
+AC_LANG_PUSH([C++])
+AC_CHECK_HEADERS([clearsync/csplugin.h], [], [AC_MSG_ERROR([clearsync header files not found.])])
+AC_LANG_POP([C++])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_SIZE_T
