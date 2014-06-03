@@ -161,10 +161,17 @@ void *csPluginRouteWatch::Entry(void)
         {
             int rc;
             sigset_t signal_set;
-            csTimer *timer =
-                static_cast<csEventTimer *>(event)->GetTimer();
+            csTimer *timer = NULL;
+
+            if ((timer = static_cast<csEventTimer *>(event)->GetTimer()) == NULL) {
+                csLog::Log(csLog::Debug, "%s: Event from NULL timer!",
+                    name.c_str());
+                break;
+            }
+
             map<int, struct TableConfig_t *>::iterator i;
             i = table.find((int)timer->GetId());
+
             if (i != table.end()) {
                 csLog::Log(csLog::Debug, "%s: Executing route watch action: %s",
                     name.c_str(), i->second->action->c_str());
@@ -174,6 +181,7 @@ void *csPluginRouteWatch::Entry(void)
                 if ((rc = pthread_sigmask(SIG_UNBLOCK, &signal_set, NULL)) != 0) {
                     csLog::Log(csLog::Error, "%s: pthread_sigmask: %s",
                         name.c_str(), strerror(rc));
+
                     return NULL;
                 }
 
@@ -184,11 +192,15 @@ void *csPluginRouteWatch::Entry(void)
                 if ((rc = pthread_sigmask(SIG_BLOCK, &signal_set, NULL)) != 0) {
                     csLog::Log(csLog::Error, "%s: pthread_sigmask: %s",
                         name.c_str(), strerror(rc));
+
                     return NULL;
                 }
+           
+                delete i->second->timer; 
+                i->second->timer = NULL;
             }
-            delete timer;
-            i->second->timer = NULL;
+
+            delete event;
             break;
         }
 
@@ -271,9 +283,9 @@ void csPluginRouteWatch::QueueDelayedAction(struct TableConfig_t *config)
     if (config->timer)
         config->timer->SetValue(config->delay);
     else {
-            config->timer = new csTimer(
-                (cstimer_id_t)config->table, config->delay, 0, this);
-            config->timer->Start();
+        config->timer = new csTimer(
+            (cstimer_id_t)config->table, config->delay, 0, this);
+        config->timer->Start();
     }
 }
 
