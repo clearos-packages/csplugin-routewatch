@@ -1,7 +1,7 @@
 # ClearSync Plugin RPM spec
 Name: csplugin-routewatch
 Version: 2.3
-Release: 8%{dist}
+Release: 9%{dist}
 Vendor: ClearFoundation
 License: GPL
 Group: System/Plugins
