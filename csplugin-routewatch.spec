@@ -1,7 +1,7 @@
 # ClearSync Plugin RPM spec
 Name: csplugin-routewatch
 Version: 2.3
-Release: 9%{dist}
+Release: 10%{dist}
 Vendor: ClearFoundation
 License: GPL
 Group: System/Plugins
@@ -82,7 +82,7 @@ fi
 %if "0%{dist}" == "0.v6"
 /sbin/service clearsyncd condrestart 2>&1 || :
 %else
-/usr/bin/systemctl reload-or-restart clearsync.service -q
+/usr/bin/systemctl try-restart clearsync.service -q
 %endif
 
 # Files
